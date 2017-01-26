@@ -30,13 +30,13 @@ if __name__ == '__main__':
     # train the parser
     tp = TransitionParser(Transition, FeatureExtractor)
     tp.train(train_data)
-    tp.save("english-" + str(SIZE) + "model")
+    tp.save("english-" + str(SIZE) + ".model")
 
     stop = time.time()
     print "Time elapsed: {}s.".format(int(stop - start))
 
     # load the model
-    tp = TransitionParser.load("english-" + str(SIZE) + "model")
+    tp = TransitionParser.load("english-" + str(SIZE) + ".model")
 
 
     # parsing an arbitrary sentence
@@ -89,9 +89,9 @@ if __name__ == '__main__':
 
 
 # 200 training examples
-# Time elapsed: 140s.
-# UAS: 0.682051282051
-# LAS: 0.638461538462
+# Time elapsed: 119s.
+# UAS: 0.689149560117
+# LAS: 0.653958944282
 
 # 2000 training examples
 # Time elapsed: 5745s. ~1.5hr

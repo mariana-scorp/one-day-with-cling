@@ -1,4 +1,4 @@
-# one-day-with-cling
+# NLP: a peek into a day of a computational linguist
 
 Code used in [Grammarly Morning@Lohika NLP: Third Chapter](http://morning.lohika.com/news/grammarly-morninglohika-nlp-third-chapter).
 

@@ -24,24 +24,23 @@ if __name__ == '__main__':
 
     # training
 
-    print "Starting the training..."
-    start = time.time()
-
-    # train the parser
-    tp = TransitionParser(Transition, FeatureExtractor)
-    tp.train(train_data)
-    tp.save("english-" + str(SIZE) + ".model")
-
-    stop = time.time()
-    print "Time elapsed: {}s.".format(int(stop - start))
+    # print "Starting the training..."
+    # start = time.time()
+    #
+    # # train the parser
+    # tp = TransitionParser(Transition, FeatureExtractor)
+    # tp.train(train_data)
+    # tp.save("english-" + str(SIZE) + ".model")
+    #
+    # stop = time.time()
+    # print "Time elapsed: {}s.".format(int(stop - start))
 
     # load the model
     tp = TransitionParser.load("english-" + str(SIZE) + ".model")
 
 
     # parsing an arbitrary sentence
-
-    sentence = DependencyGraph.from_sentence('This is a test.')
+    sentence = DependencyGraph.from_sentence('Computational linguists will conquer the world.')
     parsed = tp.parse([sentence])
     print parsed[0].to_conll(10).encode('utf-8')
 

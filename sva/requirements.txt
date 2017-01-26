@@ -1,0 +1,2 @@
+scikit-learn==0.15.2
+spacy>=1.5

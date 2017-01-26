@@ -19,8 +19,6 @@ if __name__ == '__main__':
     test_data = subdata[:test_part]
     train_data = subdata[test_part:]
 
-    print "The data is ready."
-
 
     # training
 
@@ -42,32 +40,32 @@ if __name__ == '__main__':
     # parsing an arbitrary sentence
     sentence = DependencyGraph.from_sentence('Computational linguists will conquer the world.')
     parsed = tp.parse([sentence])
-    print parsed[0].to_conll(10).encode('utf-8')
+    print parsed[0].to_conll(5).encode('utf-8')
 
     sentence = DependencyGraph.from_sentence('My cat chased the little mouse and ate it!')
     parsed = tp.parse([sentence])
-    print parsed[0].to_conll(10).encode('utf-8')
+    print parsed[0].to_conll(5).encode('utf-8')
 
     # ambiguous cases
     sentence = DependencyGraph.from_sentence("Wanted: a nurse for a baby about twenty years old.")
     parsed = tp.parse([sentence])
-    print parsed[0].to_conll(10).encode('utf-8')
+    print parsed[0].to_conll(5).encode('utf-8')
 
     sentence = DependencyGraph.from_sentence("I shot an elephant in my pajamas.")
     parsed = tp.parse([sentence])
-    print parsed[0].to_conll(10).encode('utf-8')
+    print parsed[0].to_conll(5).encode('utf-8')
 
     sentence = DependencyGraph.from_sentence("I once saw a deer riding my bicycle.")
     parsed = tp.parse([sentence])
-    print parsed[0].to_conll(10).encode('utf-8')
+    print parsed[0].to_conll(5).encode('utf-8')
 
     sentence = DependencyGraph.from_sentence("I'm glad I'm a man, and so is Lola.")
     parsed = tp.parse([sentence])
-    print parsed[0].to_conll(10).encode('utf-8')
+    print parsed[0].to_conll(5).encode('utf-8')
 
     sentence = DependencyGraph.from_sentence("We eat pizza with anchovy.")
     parsed = tp.parse([sentence])
-    print parsed[0].to_conll(10).encode('utf-8')
+    print parsed[0].to_conll(5).encode('utf-8')
 
 
     # testing

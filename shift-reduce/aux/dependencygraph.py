@@ -416,6 +416,8 @@ class DependencyGraph(object):
             template = '{word}\t{tag}\t{head}\n'
         elif style == 4:
             template = '{word}\t{tag}\t{head}\t{rel}\n'
+        elif style == 5:
+            template = '{i}\t{word}\t{tag}\t{head}\t{rel}\n'
         elif style == 10:
             template = '{i}\t{word}\t{lemma}\t{ctag}\t{tag}\t{feats}\t{head}\t{rel}\t_\t_\n'
         else:

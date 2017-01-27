@@ -2,6 +2,7 @@ from __future__ import division
 import json
 from rule_based import classify_verb as rules
 from ml_based import classify_verb as ml
+from pipeline import nlp
 
 # test the quality
 def test_quality(approach):
@@ -32,17 +33,20 @@ with open("vbz_to_vbp.txt", "r") as f:
         transform[w] = t
 
 # test random sentences
-def test(s, id, approach):
+def test(s, approach):
     """
     Catch errors and print out the transform.
     """
     s_split = s.split()
-    if approach(s, id) == 1:
-        print str(1) + ":", " ".join(s_split[:id]), \
-            "[{}=>{}]".format(s_split[id], transform[s_split[id]]), \
-            " ".join(s_split[id + 1:])
-    else:
-        print str(0) + ":", s
+    parsed_s = nlp(s)
+    for i in xrange(len(parsed_s)):
+        if parsed_s[i].tag_ == "VBZ":
+            if approach(s, i) == 1:
+                print str(1) + ":", " ".join(s_split[:i]), \
+                    "[{}=>{}]".format(s_split[i], transform[s_split[i]]), \
+                    " ".join(s_split[i + 1:]) + "\t({} {})".format(parsed_s[i], parsed_s[i].tag_)
+            else:
+                print str(0) + ":", s + "\t({} {})".format(parsed_s[i], parsed_s[i].tag_)
 
 
 if __name__ == '__main__':
@@ -68,16 +72,16 @@ if __name__ == '__main__':
         print j
 
         # TP
-        test(u'We likes pizza with anchovy .', 1, approach)
-        test(u'Children like and cherishes her kindness and cooking skills .', 3, approach)
-        test(u'Some is watching the way she knits and loving it .', 1, approach)
-        test(u'Colorless green ideas sleeps furiously .', 3, approach)
-        test(u"Barry and Mary is just the cutest people .", 3, approach)
-        test(u"Barry and Mary , whom I met at the New Year 's party , is just the cutest people .", 14, approach)
-        test(u'There is two cats and a dog .', 1, approach)
+        test(u'We likes pizza with anchovy .', approach)
+        test(u'Children like and cherishes her kindness and cooking skills .', approach)
+        test(u'Some is watching the way she knits and loving it .', approach)
+        test(u'Colorless green ideas sleeps furiously .', approach)
+        test(u"Barry and Mary is just the cutest people .", approach)
+        test(u"Barry and Mary , whom I met at the New Year 's party , is just the cutest people .", approach)
+        test(u'There is two cats and a dog .', approach)
 
         # TN
-        test(u'He likes pizza .', 1, approach)
-        test(u'The kid likes and cherishes her kindness and cooking skills .', 4, approach)
-        test(u'This one is watching the way she knits and loving it .', 2, approach)
-        test(u"Barry or Mary is just the cutest person .", 3, approach)
+        test(u'He likes pizza .', approach)
+        test(u'The kid likes and cherishes her kindness and cooking skills .', approach)
+        test(u'This one is watching the way she knits and loving it .', approach)
+        test(u"Barry or Mary is just the cutest person .", approach)

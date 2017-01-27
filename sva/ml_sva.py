@@ -131,10 +131,11 @@ def train_test():
     #train the classifier
     clf.fit(X_train, y_train)
     prediction = clf.predict(X_test)
-    print 'Precision: %0.2f' % precision_score(y_test, prediction)
-    print 'Recall: %0.2f' % recall_score(y_test, prediction)
-    print 'Accuracy: %0.2f' % accuracy_score(y_test, prediction)
-    print 'F1 score: %0.2f' % f1_score(y_test, prediction)
+
+    print 'Precision: {:0.2f}%'.format(precision_score(y_test, prediction))
+    print 'Recall: {:0.2f}%'.format(recall_score(y_test, prediction))
+    print 'Accuracy: {:0.2f}%'.format(accuracy_score(y_test, prediction))
+    print 'F1 score: {:0.2f}%'.format(f1_score(y_test, prediction))
 
     #dump the classifier to the file
     output = open('sva_classifier.pkl', 'wb')

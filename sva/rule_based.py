@@ -53,24 +53,23 @@ def classify_verb(sentence, id):
 
 
 # test the quality
+def test_quality():
+    tp, fn, fp, tn = 0, 0, 0, 0
+    with open("test.txt", "r") as f:
+        test_data = json.load(f)
+    for i in test_data:
+        rez = classify_verb(i[0][0], i[0][1])
+        if rez == 1 and i[1] == 1:
+            tp += 1
+        elif rez == 0 and i[1] == 1:
+            fn += 1
+        elif rez == 1 and i[1] == 0:
+            fp += 1
+        else:
+            tn += 1
 
-tp, fn, fp, tn = 0, 0, 0, 0
-with open("test.txt", "r") as f:
-    test_data = json.load(f)
-for i in test_data:
-    rez = classify_verb(i[0][0], i[0][1])
-    if rez == 1 and i[1] == 1:
-        tp += 1
-    elif rez == 0 and i[1] == 1:
-        fn += 1
-    elif rez == 1 and i[1] == 0:
-        fp += 1
-    else:
-        tn += 1
-
-print "Precision: {}%. Recall: {}%.".format(
-    round(tp / (tp + fp), 2), round(tp / (tp + fn), 2))
-print
+    print "Precision: {}%.\nRecall: {}%.".format(
+        round(tp / (tp + fp), 2), round(tp / (tp + fn), 2))
 
 
 # read the transformations
@@ -93,15 +92,15 @@ def test(s, id):
         print str(0) + ":", s
 
 
-# TP
-test(u'We likes pizza .', 1)
-test(u'Children liked and cherishes her kindness .', 3)
-test(u'These is loving to swim .', 1)
-test(u'Colorless green ideas sleeps furiously .', 3)
-test(u"Barry and Mary , whom I met at the New Year 's party , is just the cutest couple .", 14)
-test(u"Barry and Mary is just the cutest couple .", 3)
-test(u'There is two cats and a dog .', 1)
-# TN
-test(u'He likes pizza .', 1)
-test(u'Children liked and cherished her kindness .', 4)
-test(u'This one is loving to swim .', 2)
+# # TP
+# test(u'We likes pizza .', 1)
+# test(u'Children liked and cherishes her kindness .', 3)
+# test(u'These is loving to swim .', 1)
+# test(u'Colorless green ideas sleeps furiously .', 3)
+# test(u"Barry and Mary , whom I met at the New Year 's party , is just the cutest couple .", 14)
+# test(u"Barry and Mary is just the cutest couple .", 3)
+# test(u'There is two cats and a dog .', 1)
+# # TN
+# test(u'He likes pizza .', 1)
+# test(u'Children liked and cherished her kindness .', 4)
+# test(u'This one is loving to swim .', 2)

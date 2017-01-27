@@ -8,6 +8,7 @@ from pipeline import nlp
 def test_quality(approach):
     """
     Calculate precision and recall of a solution.
+    :param approach: function that classifies the verb
     """
     tp, fn, fp, tn = 0, 0, 0, 0
     with open("test.txt", "r") as f:

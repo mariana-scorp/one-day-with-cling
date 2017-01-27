@@ -90,17 +90,3 @@ def test(s, id):
             " ".join(s_split[id + 1:])
     else:
         print str(0) + ":", s
-
-
-# # TP
-# test(u'We likes pizza .', 1)
-# test(u'Children liked and cherishes her kindness .', 3)
-# test(u'These is loving to swim .', 1)
-# test(u'Colorless green ideas sleeps furiously .', 3)
-# test(u"Barry and Mary , whom I met at the New Year 's party , is just the cutest couple .", 14)
-# test(u"Barry and Mary is just the cutest couple .", 3)
-# test(u'There is two cats and a dog .', 1)
-# # TN
-# test(u'He likes pizza .', 1)
-# test(u'Children liked and cherished her kindness .', 4)
-# test(u'This one is loving to swim .', 2)

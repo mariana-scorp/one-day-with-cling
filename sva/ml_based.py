@@ -18,7 +18,9 @@ tag_lst = [u'WDT', u'JJ', u'WP', u'DT', u'NN', u'PRP', u'NNS', u'NNP', u'WRB',
 NAME = 'sva_classifier.pkl'
 
 def has_subject(w):
-    "Gets the tag and lemma of the subject."
+    """
+    Get the tag and the lemma of the subject.
+    """
     if sum(1 for x in w.children) > 0:
         for child in w.children:
             if child.dep == nsubj:
@@ -26,13 +28,17 @@ def has_subject(w):
     return ('nostring', 'nostring')
 
 def has_conjunct(w):
-    "Checks if the subject has a conjunct."
+    """
+    Check if the subject has a conjunct.
+    """
     for child in w.children:
         if child.dep == nsubj and "and" in [c.lemma_ for c in child.children]:
             return True
 
 def feature_extractor(sents):
-    "Extracts feature for the sentence."
+    """
+    Extracts feature for the sentence.
+    """
 
     N = len(sents)
     # numpy lists of zeros for features
@@ -124,7 +130,9 @@ def train():
     output.close()
 
 def classify_verb(s, id):
-    "Decide if the verb needs to be changed. Return 1 if yes, 0 - if no."
+    """
+    Decide if the verb needs to be changed. Return 1 if yes, 0 - if no.
+    """
     input = open(NAME, 'rb')
     model = load(input)
     input.close()

@@ -5,7 +5,9 @@ from ml_based import classify_verb as ml
 
 # test the quality
 def test_quality(approach):
-    "Calculate precision and recall of a solution."
+    """
+    Calculate precision and recall of a solution.
+    """
     tp, fn, fp, tn = 0, 0, 0, 0
     with open("test.txt", "r") as f:
         test_data = json.load(f)
@@ -31,7 +33,9 @@ with open("vbz_to_vbp.txt", "r") as f:
 
 # test random sentences
 def test(s, id, approach):
-    "Catch errors and print out the transform."
+    """
+    Catch errors and print out the transform.
+    """
     s_split = s.split()
     if approach(s, id) == 1:
         print str(1) + ":", " ".join(s_split[:id]), \

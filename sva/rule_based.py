@@ -10,8 +10,9 @@ PRP_SG = ["he", "she", "it", "this", "that", "each", "another", "one"]
 # classify VBZ
 
 def has_plural_subject(w):
-    "Check if the verb has an nsubj relation to a plural subject"
-
+    """
+    Check if the verb has an nsubj relation to a plural subject.
+    """
     for child in w.children:
         if child.dep == nsubj and \
                 (child.tag_ in ["NNS", "NNPS"] or child.lemma_ in PRP_PL or \
@@ -20,7 +21,9 @@ def has_plural_subject(w):
             return True
 
 def classify_verb(s, id):
-    "Decide if the verb needs to be changed. Return 1 if yes, 0 - if no."
+    """
+    Decide if the verb needs to be changed. Return 1 if yes, 0 - if no.
+    """
 
     # sentence, given word and its head
     s = nlp(s)

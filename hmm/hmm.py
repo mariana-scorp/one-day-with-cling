@@ -84,7 +84,9 @@ if __name__ == '__main__':
     ##### Hidden Markov Models
 
     def get_tags(word):
-        "Return the list of acceptable POS tags for word."
+        """
+        Return the list of acceptable POS tags for word.
+        """
         tagset = []
         try:
             tagset += word_tags[word]
@@ -97,7 +99,9 @@ if __name__ == '__main__':
         return tags if tagset == [] else tagset
 
     def tag(sentence, print_info=True):
-        "Get the most probable POS tag sequence for sentence."
+        """
+        Get the most probable POS tag sequence for sentence.
+        """
 
         # a placeholder for probabilities
         probs = defaultdict(int)

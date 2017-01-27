@@ -6,7 +6,7 @@ from featureextractor import FeatureExtractor
 from transition import Transition
 from aux.dependencygraph import DependencyGraph
 
-SIZE = 200
+SIZE = 5000
 
 if __name__ == '__main__':
 
@@ -83,19 +83,17 @@ if __name__ == '__main__':
     ev = DependencyEvaluator(test_data, parsed)
     print "UAS: {} \nLAS: {}".format(*ev.eval())
 
+    # 200 training examples
+    # Time elapsed: 119s.
+    # UAS: 0.689149560117
+    # LAS: 0.653958944282
 
+    # 2000 training examples
+    # Time elapsed: 5745s. ~1.5hr
+    # UAS: 0.822968580715
+    # LAS: 0.791332611051
 
-# 200 training examples
-# Time elapsed: 119s.
-# UAS: 0.689149560117
-# LAS: 0.653958944282
-
-# 2000 training examples
-# Time elapsed: 5745s. ~1.5hr
-# UAS: 0.822968580715
-# LAS: 0.791332611051
-
-# 4500 training examples
-# Time elapsed: 29054s. ~ 8hrs
-# UAS: 0.860304659498
-# LAS: 0.838082437276
+    # 4500 training examples
+    # Time elapsed: 29054s. ~ 8hrs
+    # UAS: 0.860304659498
+    # LAS: 0.838082437276

@@ -1,6 +1,3 @@
-import spacy, json
-from spacy.symbols import *
-
 from rule_based import test as test_rb
 from rule_based import test_quality as quality_rb
 from ml_sva import test as test_ml

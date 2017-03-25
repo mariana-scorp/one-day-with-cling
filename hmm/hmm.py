@@ -5,7 +5,6 @@ from collections import defaultdict
 if __name__ == '__main__':
 
 
-
     ##### Read the necessary data
 
     # "brown_pos.txt" - a data file. Size: ~ 27,500 sentences (~ 450,000 words).
@@ -45,7 +44,7 @@ if __name__ == '__main__':
     # collection of ngrams
     for sent in train_data:
         # sentence = "Chewie_NNP ,_, we_PRP 're_VBP home_RB !_!"
-        # change to: [("Chewie", "NNP"), (",", ","), ("we", "PRP"), ("'re", "VBP")...
+        # change to: [("Chewie", "NNP"), (",", ","), ("we", "PRP")...
         sent = [tuple(w_t.split("_")) for w_t in sent.split()]
         for i in range(len(sent)):
             # trigrams and bigrams of POS tags
@@ -62,8 +61,8 @@ if __name__ == '__main__':
                 ngrams[(sent[i-2][1], sent[i-1][1])] += 1
                 total_bigrams.add((sent[i-2][1], sent[i-1][1]))
             # word/tag statistics
-            ngrams[(sent[i][1])]+=1
-            ngrams[(sent[i][0] + "_" + sent[i][1])]+=1
+            ngrams[sent[i][1]] += 1
+            ngrams[sent[i][0] + "_" + sent[i][1]] += 1
         # trigrams and bigrams of POS tags at sentence end
         ngrams[(sent[i-1][1], sent[i][1], "</S>")] += 1
         ngrams[(sent[i-1][1], sent[i][1])] += 1
@@ -71,11 +70,11 @@ if __name__ == '__main__':
 
 
     # for example
-    print "Love as noun: {}.".format(ngrams[("love_NN")]),
-    print "Love as verb: {}.".format(ngrams[("love_VBP")] + ngrams[("love_VB")])
+    print "Love as noun: {}.".format(ngrams["love_NN"]),
+    print "Love as verb: {}.".format(ngrams["love_VBP"] + ngrams["love_VB"])
     print "There are {} adjectives and {} adverbs in the corpus.".format(
-        (ngrams[("JJ")] + ngrams[("JJR")] + ngrams[("JJS")]),
-        (ngrams[("RB")] + ngrams[("RBR")] + ngrams[("RBS")]))
+        (ngrams["JJ"] + ngrams["JJR"] + ngrams["JJS"]),
+        (ngrams["RB"] + ngrams["RBR"] + ngrams["RBS"]))
     print "Out of {} occurrences of (IN, DT), only {} times it was followed by NN.".format(
         ngrams[("IN", "DT")], ngrams[("IN", "DT", "NN")])
 
@@ -96,7 +95,7 @@ if __name__ == '__main__':
             tagset += word_tags[word.lower()]
         except:
             pass
-        return tags if tagset == [] else tagset
+        return tagset if tagset else tags
 
     def tag(sentence, print_info=True):
         """
@@ -128,9 +127,12 @@ if __name__ == '__main__':
                 for v in v_tags:
                     max_prob, max_tag = -1, None
                     for w in w_tags:
+                        # Add-one (Laplace):
+                        # add 1 in numerator
+                        # add (V - the total number of possible (N-1)-grams) in denominator
                         val = probs[(i-1, w, u)] * \
                               ((ngrams[(w, u, v)] + 1) / (ngrams[(w, u)] + len(total_bigrams))) * \
-                              ((ngrams[(sentence[0] + "_" + v)] + 1) / (ngrams[(v)] + len(tags)))
+                              ((ngrams[(sentence[0] + "_" + v)] + 1) / (ngrams[v] + len(tags)))
                         if val > max_prob:
                             max_prob, max_tag = val, w
                     probs[(i, u, v)] = max_prob
@@ -140,7 +142,8 @@ if __name__ == '__main__':
         max_prob, max_tags = -1, None
         for u in get_tags(sentence[n-2]):
             for v in get_tags(sentence[n-1]):
-                val = probs[(n - 1, u, v)] * (ngrams[(u, v, "</S>")] + 1) / (ngrams[(u, v)] + len(total_bigrams))
+                val = probs[(n - 1, u, v)] * (ngrams[(u, v, "</S>")] + 1) / \
+                      (ngrams[(u, v)] + len(total_bigrams))
                 if val > max_prob:
                     max_prob, max_tags = val, [v, u]
 
